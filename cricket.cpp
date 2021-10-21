@@ -118,7 +118,9 @@ void Game::welcome() {
     cout << "| 1. Create 2 teams (Team-A and Team-B with 5      |" << endl;
     cout << "|    players each) from a given pool of 10 players.|" << endl;
     cout << "| 2. Lead the toss and decide the choice of play.  |" << endl;
-    cout << "| 3. Each innings will be of 6 balls.              |" << endl;
+    cout << "| 3. Each innings will be of 6 balls               |" << endl;
+    cout << "| 4.This is a T-20 match of 20 overs and 6 balls   |" << endl;
+    cout << "|	 each over.                                     |" << endl;
     cout << "----------------------------------------------------" << endl;
 }
 
