@@ -2,10 +2,10 @@
 
 using namespace std;
 
-class Player {
+class cric {
 
 	public:
-		Player();
+		cric();
 		string name;
 		int id;
 		int runsScored;
@@ -14,7 +14,7 @@ class Player {
 		int runsGiven;
 		int wicketsTaken;
 };
-Player::Player() {
+cric::cric() {
 
 	runsScored = 0;
 	ballsPlayed = 0;
@@ -22,17 +22,17 @@ Player::Player() {
 	runsGiven = 0;
 	wicketsTaken = 0;
 }
-class Team {
+class group {
 
 	public:
-		Team();
+		group();
 		string name;
 		int totalRunsScored;
 		int wicketsLost;
 		int totalBallsBowled;
-		vector<Player> players;
+		vector<cric> players;
 };
-Team::Team() {
+group::group() {
 
 	totalRunsScored = 0;
 	wicketsLost = 0;
@@ -48,9 +48,9 @@ class Game {
 		string players[22];
 
 		bool isFirstInnings;
-		Team teamA, teamB;
-		Team *battingTeam, *bowlingTeam;
-		Player *batsman, *bowler;
+		group teamA, teamB;
+		group *battingTeam, *bowlingTeam;
+		cric *batsman, *bowler;
 
 		void welcome();
 		void showAllPlayers();
@@ -59,7 +59,7 @@ class Game {
 		bool validateSelectedPlayer(int);
 		void showTeamPlayers();
 		void toss();
-		void tossChoice(Team);
+		void tossChoice(group);
 		void startFirstInnings();
 		void initializePlayers();
 		void playInnings();
@@ -71,9 +71,9 @@ class Game {
 };
 Game::Game() {
 
-	playersPerTeam = 5;
-	maxBalls = 6;
-	totalPlayers = 11;
+	playersPerTeam = 10;
+	maxBalls = 20;
+	totalPlayers = 22;
 
 	players[0] = "Virat";
 	players[1] = "Rohit";
@@ -85,8 +85,18 @@ Game::Game() {
 	players[7] = "Hardik";
 	players[8] = "Bumrah";
 	players[9] = "BKumar";
-	players[10] = "dhoni";
-
+	players[10] ="Mdhoni";
+	players[11] ="Rahul";
+	players[12] ="Sourav";
+    players[13] ="Ravishankar";
+    players[14] ="Sachin";
+    players[15] ="Kapil";
+    players[16] ="Anil";
+    players[17] ="Zaheer";
+    players[18] ="Harbhajan";
+    players[19] ="Yuvraj";
+	players[20] ="Imran";
+	players[21] ="Brian";
 	isFirstInnings = false;
 	teamA.name = "Team-A";
 	teamB.name = "Team-B";
@@ -142,7 +152,7 @@ int Game::takeIntegerInput() {
 bool Game::validateSelectedPlayer(int index) {
 
 	int n;
-	vector<Player> players;
+	vector<cric> players;
 
 	players = teamA.players;
 	n = players.size();
@@ -177,14 +187,14 @@ void Game::selectPlayers() {
 			cout << endl << "Select player " << i + 1 << " of Team A (-: only numbers :-) - ";
 			int playerIndexTeamA = takeIntegerInput();
 
-			if (playerIndexTeamA < 0 || playerIndexTeamA > 10) {
+			if (playerIndexTeamA < 0 || playerIndexTeamA > 22) {
 				cout << endl << "Please select from the given players" << endl;
 				goto teamASelection;
 			} else if (!validateSelectedPlayer(playerIndexTeamA)) {
 				cout << endl << "Player has been already selected. Please select other player" << endl;
 				goto teamASelection;
 			} else {
-				Player teamAPlayer;
+				cric teamAPlayer;
 				teamAPlayer.id = playerIndexTeamA;
 				teamAPlayer.name = players[playerIndexTeamA];
 				teamA.players.push_back(teamAPlayer);
@@ -195,14 +205,14 @@ void Game::selectPlayers() {
 			cout << endl << "Select player " << i + 1 << " of Team B (-: only numbers :-) -";
 			int playerIndexTeamB = takeIntegerInput();
 
-			if (playerIndexTeamB < 0 || playerIndexTeamB > 10) {
+			if (playerIndexTeamB < 0 || playerIndexTeamB > 22) {
 				cout << endl << "Please select from the given players" << endl;
 				goto teamBSelection;
 			} else if (!validateSelectedPlayer(playerIndexTeamB)) {
 				cout << endl << "Player has been already selected. Please select other player" << endl;
 				goto teamBSelection;
 			} else {
-				Player teamBPlayer;
+				cric teamBPlayer;
 				teamBPlayer.name = players[playerIndexTeamB];
 				teamB.players.push_back(teamBPlayer);
 			}
@@ -211,8 +221,8 @@ void Game::selectPlayers() {
 
 void Game::showTeamPlayers() {
 
-    vector<Player> teamAPlayers = teamA.players;
-    vector<Player> teamBPlayers = teamB.players;
+    vector<cric> teamAPlayers = teamA.players;
+    vector<cric> teamBPlayers = teamB.players;
 
     cout << endl << endl;
     cout << "--------------------------\t\t--------------------------" << endl;
@@ -251,7 +261,7 @@ void Game::toss() {
     }
 }
 
-void Game::tossChoice(Team tossWinnerTeam) {
+void Game::tossChoice(group tossWinnerTeam) {
 
 	cout << "Enter 1 to bat or 2 to bowl first. " << endl
        		 << "1. Bat" << endl
@@ -310,7 +320,7 @@ void Game::startSecondInnings() {
 	isFirstInnings = false;
 
     // Swap battingTeam and bowlingTeam pointers
-    Team tempTeam = *battingTeam;
+    group tempTeam = *battingTeam;
     *battingTeam = *bowlingTeam;
     *bowlingTeam = tempTeam;
 
@@ -464,12 +474,12 @@ void Game::showMatchSummary() {
     cout << "| PLAYER \t BATTING \t BOWLING |" << endl;
 
     for (int j = 0; j < playersPerTeam; j++) {
-    	Player player = battingTeam->players[j];
+    	cric cric = battingTeam->players[j];
     	cout << "|----------------------------------------|" << endl;
-    	cout << "| " << "[" << j << "] " << player.name << "  \t "
-        	<< player.runsScored << "(" << player.ballsPlayed << ") \t\t "
-			<< player.ballsBowled << "-" << player.runsGiven << "-"
-			<< player.wicketsTaken << "\t |" << endl;
+    	cout << "| " << "[" << j << "] " << cric.name << "  \t "
+        	<< cric.runsScored << "(" << cric.ballsPlayed << ") \t\t "
+			<< cric.ballsBowled << "-" << cric.runsGiven << "-"
+			<< cric.wicketsTaken << "\t |" << endl;
     }
     cout << "==========================================" << endl << endl;
 
@@ -479,15 +489,12 @@ void Game::showMatchSummary() {
     cout << "| PLAYER \t BATTING \t BOWLING |" << endl;
 
     for (int i = 0; i < playersPerTeam; i++) {
-    	Player player = bowlingTeam->players[i];
+    	cric cric = bowlingTeam->players[i];
         cout << "|----------------------------------------|" << endl;
-        cout << "| " << "[" << i << "] " << player.name << "  \t "
-            << player.runsScored << "(" << player.ballsPlayed << ") \t\t "
-            << player.ballsBowled << "-" << player.runsGiven << "-"
-			<< player.wicketsTaken << "\t |" << endl;
+        cout << "| " << "[" << i << "] " << cric.name << "  \t "
+            << cric.runsScored << "(" << cric.ballsPlayed << ") \t\t "
+            << cric.ballsBowled << "-" << cric.runsGiven << "-"
+			<< cric.wicketsTaken << "\t |" << endl;
     }
     cout << "==========================================" << endl << endl;
 }
-
-
-
